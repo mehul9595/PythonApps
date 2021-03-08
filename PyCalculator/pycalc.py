@@ -33,10 +33,10 @@ def main():
             elif choice == "3":
                 print(multiply(x, y))
             elif choice == "4":
-                print(divide(x, y))
-            
+                print(divide(x, y))      
         else:
             print("Didn't select valid operation")
+            break
 
 if __name__ == "__main__":
     main()
