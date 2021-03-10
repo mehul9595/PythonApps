@@ -28,13 +28,19 @@ def main():
             print("adding entry to journal")
             files = journal.show_journals()
             choose_file = int(input("Select a file number:"))
-            print("Enter data and press return when done.")
-            str_content = str(input())
-            journal.add_entry(files[choose_file - 1], str_content)
+            if len(files) >= choose_file:
+                print("Enter data and press return when done:")
+                str_content = str(input())
+                journal.add_entry(files[choose_file - 1], str_content)
+            else:
+                print("Invalid file number, try again.")
         elif cmd == "d":
             files = journal.show_journals()
-            choose_file = int(input("Select a file number to delete"))
-            journal.remove_file(files[choose_file - 1])
+            choose_file = int(input("Select a file number to delete:"))
+            if len(files) >= choose_file:
+                journal.remove_file(files[choose_file - 1])
+            else:
+                print("Invalid file number, try again.")
         elif cmd == "q": 
             print("Bye! see you again.")        
         elif cmd == "c":
