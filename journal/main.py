@@ -2,9 +2,9 @@ import journal
 
 def main():
     print("Let's play with journal's")
-    print("Commands: [1] Show Journals, [2] Create Journal [3] Load Journal, [4] Quit the application")
+    print("Commands: [1] Show Journals, [2] Create Journal [3] Load Journal, [4] Add Entry, [5] Quit the application")
     cmd = 0    
-    while cmd != 4:
+    while cmd != 5:
         cmd = int(input("Enter a command:"))
         if cmd == 1:
             journal.show_journals()
@@ -13,8 +13,14 @@ def main():
             msg = journal.create_journal(new_journal)
             print(msg)
         elif cmd == 3:
-            print("Thanks!")
-        elif cmd == 4: 
+            journal.load_journal("")
+        elif cmd == 4:
+            print("adding entry to journal")
+            files = journal.show_journals()
+            choose_file = input("Select a file number:")
+            print(files)
+            journal.add_entry("journal_data.txt", "data")
+        elif cmd == 5: 
             print("Bye! see you again.")
         else:
             print("invalid command!")
