@@ -1,29 +1,50 @@
-import journal
+import journal, os
+def print_header():
+    print("""What you want to do today?: 
+    [S]how Journals
+    [N]ew Journal 
+    [L]oad Journals
+    [A]dd Journal Entry
+    [D]elete Journal
+    [Q]uit application
+    [C]lear screen""")
 
 def main():
     print("Let's play with journal's")
-    print("Commands: [1] Show Journals, [2] Create Journal [3] Load Journal, [4] Add Entry, [5] Quit the application")
-    cmd = 0    
-    while cmd != 5:
-        cmd = int(input("Enter a command:"))
-        if cmd == 1:
+    print_header()
+    cmd = -1
+    while cmd != "q" and cmd:
+        cmd = str(input("Enter a command:")).lower()
+
+        if cmd == "s":
             journal.show_journals()
-        elif cmd == 2:
+        elif cmd == "n":
             new_journal = input("New journal file name:")
             msg = journal.create_journal(new_journal)
             print(msg)
-        elif cmd == 3:
-            journal.load_journal("")
-        elif cmd == 4:
+        elif cmd == "l":
+            journal.load_journal()
+        elif cmd == "a":
             print("adding entry to journal")
             files = journal.show_journals()
-            choose_file = input("Select a file number:")
-            print(files)
-            journal.add_entry("journal_data.txt", "data")
-        elif cmd == 5: 
-            print("Bye! see you again.")
+            choose_file = int(input("Select a file number:"))
+            print("Enter data and press return when done.")
+            str_content = str(input())
+            journal.add_entry(files[choose_file - 1], str_content)
+        elif cmd == "d":
+            files = journal.show_journals()
+            choose_file = int(input("Select a file number to delete"))
+            journal.remove_file(files[choose_file - 1])
+        elif cmd == "q": 
+            print("Bye! see you again.")        
+        elif cmd == "c":
+            cls()
+            print_header()
         else:
-            print("invalid command!")
+            print("Invalid command!, please try again.")
+
+def cls():
+    os.system('cls' if os.name=='nt' else 'clear')
     
 if __name__ == "__main__":
     main()

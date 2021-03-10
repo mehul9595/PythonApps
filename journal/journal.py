@@ -21,13 +21,14 @@ def create_journal(journal_name):
     # else:
     #     return False
 
-def load_journal(name):
+def load_journal():
     data = []
     files = show_journals()
     path = Path(".","data")
     # files =  [e for e in path.iterdir() if e.is_file()] 
 
     file_number = int(input("Select Journal to load:"))
+    # print(files)
     selected_file = files[file_number - 1]
     print("Loading journal file:", selected_file.name)
     
@@ -45,11 +46,19 @@ def load_journal(name):
 
 def show_journals():
     current_path = Path(".","data")
-    files = Path.iterdir(current_path)
+    files = [f for f in current_path.iterdir() if f.is_file()]
     for index, file in enumerate(files):
         print("[{}] {}".format(index + 1, file.name))
-    return [e for e in path.iterdir() if e.is_file()]
+    # print(files)
+    return files
 
 def add_entry(journal_name, data):
     journal_name = Path(journal_name)
-    print(journal_name.is_file())
+    with journal_name.open(mode="a") as fout:
+        # for entry in data:
+        fout.write("{}\n".format(data))
+    print("Data saved in {} file.".format(journal_name.name))
+
+def remove_file(file_name):
+    os.remove(file_name)
+    print("{} is deleted.".format(file_name) if not Path(file_name).exists() else "{} is not delted.".format(file_name))
